@@ -34,8 +34,16 @@
     <div id="slide-out" class="sidenav sidenav-fixed">
       <ul class="collapsible" id="ul_menu">
         <li><strong style="margin-left:5px;">Ressources</strong></li>
-        <li><a href="changelog"><i class="fas fa-history"></i> Changelog</a></li>
-        <li><a href="index"><i class="fas fa-book-open"></i> Documentation</a></li>
+        <li>
+          <a href="changelog" class="{% if page.url contains 'changelog' %}active{% endif %}">
+            <i class="fas fa-history"></i> Changelog
+          </a>
+        </li>
+        <li>
+          <a href="index" class="{% if page.url == '/' or page.url contains 'index' %}active{% endif %}">
+            <i class="fas fa-book-open"></i> Documentation
+          </a>
+        </li>
       </ul>
     </div>
   </div>
