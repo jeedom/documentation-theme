@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- DEBUG: {{ page.url }} -->
 <html lang="{{ page.lang | default: 'fr' }}">
 <head>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -34,12 +35,12 @@
     <div id="slide-out" class="sidenav sidenav-fixed">
       <ul class="collapsible" id="ul_menu">
         <li><strong style="margin-left:5px;">Ressources</strong></li>
-        <li class="{% if page.url contains 'changelog' %}menu_active{% endif %}">
+        <li class="{% if page.url contains '/changelog' %}menu_active{% endif %}">
           <a href="changelog">
             <i class="fas fa-history"></i> Changelog
           </a>
         </li>
-        <li class="{% if page.url == '/' or page.url contains 'index' %}menu_active{% endif %}">
+        <li class="{% if page.url == '/' or page.url contains '/index' %}menu_active{% endif %}">
           <a href="index">
             <i class="fas fa-book-open"></i> Documentation
           </a>
