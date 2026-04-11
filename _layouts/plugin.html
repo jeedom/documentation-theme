@@ -30,8 +30,16 @@
       </div>
     </nav>
   </div>
+  <div class="container hide-on-print">
+    <div id="slide-out" class="sidenav sidenav-fixed">
+      <ul class="collapsible" id="ul_menu">
+        <li><strong style="margin-left:5px;" href="changelog">Changelog</strong></li>
+        <li><strong style="margin-left:5px;" href="index">Documentation</strong></li>
+      </ul>
+    </div>
+  </div>
   <div class="row" id="div_main">
-    <div id="div_content" class="col s12 m9 xl10">{{content}}</div>
+    <div id="div_content" class="col s12 m8 offset-m1 xl9 offset-xl1">{{content}}</div>
     <div class="col hide-on-small-only m3 xl2">
       <div id="div_summary" style="overflow:auto;height:100%"></div>
     </div>
