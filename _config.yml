@@ -12,13 +12,11 @@ kramdown:
   parse_block_html: true
   syntax_highlighter: rouge
 highlighter: rouge
-gems:
-- jekyll-paginate
-- jekyll-seo-tag
 exclude:
 - vendor
 plugins:
 - jekyll-seo-tag
+- jekyll-paginate
 title: "Documentation Jeedom"
 description: "Ceci est la documentation liée à la solution domotique Jeedom."
 author: "Jeedom"
