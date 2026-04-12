@@ -19,7 +19,7 @@
         <a href="#" data-target="slide-out" class="top-nav sidenav-trigger waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a>
         <a id="logo-container" href="https://jeedom.github.io/documentations" class="brand-logo center"><img src="https://jeedom.github.io/documentation-theme/img/logo.png" style="height:50px;margin-top:5px"></a>
         <ul id="navTopLeft" class="left hide-on-med-and-down" style="position:fixed;left:0px;width:280px;">
-          <li><a href="https://jeedom.github.io/documentations">Jeedom Documentation {{ page.title | default: '' }}</a></li>
+          <li><a href="https://jeedom.github.io/documentations">Jeedom Documentation {{ page.plugin | default: '' }}</a></li>
         </ul>
         <ul class="right hide-on-med-and-down">
           <li><a href="https://www.jeedom.com" target="_blank">Site</a></li>
@@ -40,10 +40,10 @@
             {% if p.icon %}
               {% assign icon = p.icon %}
             {% else %}
-              {% assign icon = site.nav_icons[p.url] | default: 'fa-file' %}
+              {% assign icon = site.nav_icons[p.name] | default: 'fa-file' %}
             {% endif %}
-            <li class="{% if page.url == p.url %}menu_active{% endif %}">
-              <a href="{{ p.url }}">
+            <li class="{% if page.url == p.name %}menu_active{% endif %}">
+              <a href="{{ p.name }}">
                 <i class="fas {{ icon }}"></i> {{ p.title }}
               </a>
             </li>
