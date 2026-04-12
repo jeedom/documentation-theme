@@ -39,13 +39,13 @@
           {% if p.title %}
             {% assign icon = site.nav_icons[p.name] | default: 'fa-file' %}
             {% if p.icon %}{% assign icon = p.icon %}{% endif %}
-            {% assign page_name = p.name | remove: '.md' | remove: '.html' %}
-            {% if page_name == 'index' %}
-              {% assign is_active = page.url | contains: 'index' %}
+            {% assign page_name = p.name | remove: '.md' | remove: '.html' | prepend: '/' %}
+            {% if page_name == '/index' %}
               {% if page.url == '/' %}{% assign is_active = true %}{% endif %}
             {% else %}
               {% assign is_active = page.url | contains: page_name %}
             {% endif %}
+            {{ p.name }} - {{ icon }}
             <li class="{% if is_active %}menu_active{% endif %}">
               <a href="{{ p.name | remove: '.md' }}">
                 <i class="fas {{ icon }}"></i> {{ p.title }}
