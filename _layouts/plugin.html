@@ -46,7 +46,7 @@
             {% else %}
               {% assign is_active = page.url | contains: page_name %}
             {% endif %}
-            {{ p.name }} - {{ icon }}
+            {{ page_name }} - {{ p.name }} - {{ icon }}
             <li class="{% if is_active %}menu_active{% endif %}">
               <a href="{{ p.name | remove: '.md' }}">
                 <i class="fas {{ icon }}"></i> {{ p.title }}
