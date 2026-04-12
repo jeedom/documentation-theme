@@ -37,15 +37,17 @@
         {% assign sorted_pages = site.pages | sort: 'nav_order' %}
         {% for p in sorted_pages %}
           {% if p.title %}
-            {% if p.icon %}
-              {% assign icon = p.icon %}
+            {% assign icon = site.nav_icons[p.name] | default: 'fa-file' %}
+            {% if p.icon %}{% assign icon = p.icon %}{% endif %}
+            {% assign page_name = p.name | remove: '.md' | remove: '.html' %}
+            {% if page_name == 'index' %}
+              {% assign is_active = page.url | contains: 'index' %}
+              {% if page.url == '/' %}{% assign is_active = true %}{% endif %}
             {% else %}
-              {% assign icon = site.nav_icons[p.name] | default: 'fa-file' %}
+              {% assign is_active = page.url | contains: page_name %}
             {% endif %}
-            {% assign page_name = p.name | prepend: '/' | remove: '.md' %}
-            {{ page_name }}
-            <li class="{% if page.url contains page_name %}menu_active{% endif %}">
-              <a href="{{ p.name | remove: '.md'}}">
+            <li class="{% if is_active %}menu_active{% endif %}">
+              <a href="{{ p.name | remove: '.md' }}">
                 <i class="fas {{ icon }}"></i> {{ p.title }}
               </a>
             </li>
@@ -54,8 +56,6 @@
       </ul>
     </div>
   </div>
-  {{ page.url }}
-  
   <div class="row" id="div_main">
     <div id="div_content" class="col s12 m8 offset-m1 xl9 offset-xl1">{{content}}</div>
     <div class="col hide-on-small-only m3 xl2">
