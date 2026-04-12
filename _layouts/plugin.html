@@ -44,7 +44,7 @@
               {% assign icon = site.nav_icons[p.name] | default: 'fa-file' %}
             {% endif %}
             {% assign page_name = p.name | prepend: '/' | remove: '.md' %}
-            <li class="{% if page.url == page_name %}menu_active{% endif %}">
+            <li class="{% if page.url contains page_name %}menu_active{% endif %}">
               <a href="{{ p.name | remove: '.md'}}">
                 <i class="fas {{ icon }}"></i> {{ p.title }}
               </a>
