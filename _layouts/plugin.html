@@ -35,6 +35,7 @@
       <ul class="collapsible" id="ul_menu">
         <li><strong style="margin-left:5px;"><i class="fas fa-cube"></i> Ressources</strong></li>
         {% assign sorted_pages = site.pages | sort: 'nav_order' %}
+        
         {% for p in sorted_pages %}
           {% if p.title %}
             {% if p.icon %}
@@ -42,7 +43,8 @@
             {% else %}
               {% assign icon = site.nav_icons[p.name] | default: 'fa-file' %}
             {% endif %}
-            <li class="{% if page.url == p.name %}menu_active{% endif %}">
+            {% assign page_name = p.name | prepend: '/' %}
+            <li class="{% if page.url == page_name %}menu_active{% endif %}">
               <a href="{{ p.name | remove: '.md'}}">
                 <i class="fas {{ icon }}"></i> {{ p.title }}
               </a>
