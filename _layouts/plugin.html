@@ -51,6 +51,7 @@
               {% endif %}
             {% endif %}
             {{ page_name }} - {{ p.name }} - {{ icon }}
+            {{ p.name }} => [{{ site.nav_icons[p.name] }}]
             <li class="{% if is_active %}menu_active{% endif %}">
               <a href="{{ p.name | remove: '.md' }}">
                 <i class="fas {{ icon }}"></i> {{ p.title }}
