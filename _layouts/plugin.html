@@ -40,6 +40,7 @@
             {% assign icon = site.nav_icons[p.name] | default: 'fa-file' %}
             {% if p.icon %}{% assign icon = p.icon %}{% endif %}
             {% assign page_name = p.name | remove: '.md' | remove: '.html' | prepend: '/' %}
+            {% assign is_active = false %}
             {% if page_name == '/index' %}
               {% if page.url == '/' %}{% assign is_active = true %}{% endif %}
             {% else %}
