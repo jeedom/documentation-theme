@@ -34,16 +34,16 @@
     <div id="slide-out" class="sidenav sidenav-fixed">
       <ul class="collapsible" id="ul_menu">
         <li><strong style="margin-left:5px;"><i class="fas fa-cube"></i> Ressources</strong></li>
-        <li class="{% if page.url contains '/changelog' %}menu_active{% endif %}">
-          <a href="changelog">
-            <i class="fas fa-history"></i> Changelog
-          </a>
-        </li>
-        <li class="{% if page.url == '/' or page.url contains '/index' %}menu_active{% endif %}">
-          <a href="index">
-            <i class="fas fa-book-open"></i> Documentation
-          </a>
-        </li>
+        {% assign sorted_pages = site.pages | sort: 'nav_order' %}
+        {% for p in sorted_pages %}
+          {% if p.icon %}
+          <li class="{% if page.url == p.url %}menu_active{% endif %}">
+            <a href="{{ p.url }}">
+              <i class="fas {{ p.icon }}"></i> {{ p.title }}
+            </a>
+          </li>
+          {% endif %}
+        {% endfor %}
       </ul>
     </div>
   </div>
