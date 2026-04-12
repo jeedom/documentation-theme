@@ -41,10 +41,14 @@
             {% if p.icon %}{% assign icon = p.icon %}{% endif %}
             {% assign page_name = p.name | remove: '.md' | remove: '.html' | prepend: '/' %}
             {% assign is_active = false %}
-            {% if page_name == '/index' %}
-              {% if page.url == '/' %}{% assign is_active = true %}{% endif %}
+            {% if page_name == '/index' or page_name == '/' %}
+              {% if page.url == '/' or page.url == '/index' or page.url == '/index.html' %}
+                {% assign is_active = true %}
+              {% endif %}
             {% else %}
-              {% assign is_active = page.url | contains: page_name %}
+              {% if page.url == page_name or page.url contains page_name %}
+                {% assign is_active = true %}
+              {% endif %}
             {% endif %}
             {{ page_name }} - {{ p.name }} - {{ icon }}
             <li class="{% if is_active %}menu_active{% endif %}">
