@@ -55,7 +55,7 @@
               {% endif %}
             {% else %}
               {{page.url}} - {{page_name}}
-              {% if page.url == page_name %}
+              {% if page.url | remove: '.html' == page_name %}
                 {% assign is_active = true %}
               {% endif %}
             {% endif %}
