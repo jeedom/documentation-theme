@@ -49,13 +49,15 @@
 
             {% assign page_name = p.name | remove: '.md' | remove: '.html' | prepend: '/' %}
             {% assign is_active = false %}
+            {% assign page_url = page.url | remove: '.html' %}
             {% if page_name == '/index' or page_name == '/' %}
               {% if page.url == '/' or page.url == '/index' or page.url == '/index.html' %}
                 {% assign is_active = true %}
               {% endif %}
             {% else %}
-              {{page.url}} - {{page_name}}
-              {% if page.url | remove: '.html' == page_name %}
+              
+              {{page_url}} - {{page_name}}
+              {% if page_url == page_name %}
                 {% assign is_active = true %}
               {% endif %}
             {% endif %}
