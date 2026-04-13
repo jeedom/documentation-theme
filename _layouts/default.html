@@ -54,6 +54,7 @@
                 {% assign is_active = true %}
               {% endif %}
             {% else %}
+              {{page.url - page_name}}
               {% if page.url == page_name %}
                 {% assign is_active = true %}
               {% endif %}
