@@ -28,7 +28,8 @@ social:
     - https://twitter.com/Jeedom_domotic
     - https://www.facebook.com/Jeedom-249936178537210/
     - https://github.com/jeedom
-nav_icons:
-  index.md: "fa-book-open"
-  changelog.md: "fa-history"
-  about.md: "fa-user"
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"

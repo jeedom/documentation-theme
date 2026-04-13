@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: 'fr' }}">
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://jeedom.github.io/documentation-theme/fonts/roboto/roboto.css">
+  <link rel="stylesheet" href="https://jeedom.github.io/documentation-theme/css/style.css">
+  <link rel="stylesheet" href="https://jeedom.github.io/documentation-theme/css/syntax-github.css">
+  <link rel="stylesheet" href="https://jeedom.github.io/documentation-theme/css/materialize.min.css">
+  <link rel="stylesheet" href="https://jeedom.github.io/documentation-theme/css/font-awesome5/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="https://jeedom.github.io/documentation-theme/css/lightbox.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta id="meta-lang" http-equiv="Content-Language" content="fr-FR">
+  <link rel="icon" href="https://jeedom.github.io/documentation-theme/favicon.ico" />
+</head>
+<body>
+  <div class="navbar-fixed hide-on-print">
+    <nav>
+      <div class="nav-wrapper container">
+        <a href="#" data-target="slide-out" class="top-nav sidenav-trigger waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a>
+        <a id="logo-container" href="https://jeedom.github.io/documentations" class="brand-logo center"><img src="https://jeedom.github.io/documentation-theme/img/logo.png" style="height:50px;margin-top:5px"></a>
+        <ul id="navTopLeft" class="left hide-on-med-and-down" style="position:fixed;left:0px;width:280px;">
+          <li><a href="https://jeedom.github.io/documentations">Jeedom Documentation {{ page.plugin | default: '' }}</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="https://www.jeedom.com" target="_blank">Site</a></li>
+          <li><a href="https://blog.jeedom.com" target="_blank">Blog</a></li>
+          <li><a href="https://community.jeedom.com" target="_blank">Community</a></li>
+          <li><a href="https://market.jeedom.com" target="_blank">Market</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="container hide-on-print">
+    <div id="slide-out" class="sidenav sidenav-fixed">
+      <ul class="collapsible" id="ul_menu">
+        <li><strong style="margin-left:5px;"><i class="fas fa-cube"></i> Ressources</strong></li>
+        {% assign nav_icons = "index.md:fa-book-open,changelog.md:fa-history,about.md:fa-user" | split: "," %}
+        {% assign sorted_pages = site.pages | sort: 'nav_order' %}
+        {% for p in sorted_pages %}
+          {% if p.title %}
+            {% assign icon = "fa-file" %}
+            {% for mapping in nav_icons %}
+              {% assign parts = mapping | split: ":" %}
+              {% if parts[0] == p.name %}
+                {% assign icon = parts[1] %}
+              {% endif %}
+            {% endfor %}
+            {% if p.icon %}{% assign icon = p.icon %}{% endif %}
+
+            {% assign page_name = p.name | remove: '.md' | remove: '.html' | prepend: '/' %}
+            {% assign is_active = false %}
+            {% if page_name == '/index' or page_name == '/' %}
+              {% if page.url == '/' or page.url == '/index' or page.url == '/index.html' %}
+                {% assign is_active = true %}
+              {% endif %}
+            {% else %}
+              {% if page.url == page_name or page.url contains page_name %}
+                {% assign is_active = true %}
+              {% endif %}
+            {% endif %}
+
+            <li class="{% if is_active %}menu_active{% endif %}">
+              <a href="{{ p.name | remove: '.md' }}">
+                <i class="fas {{ icon }}"></i> {{ p.title }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="row" id="div_main">
+    <div id="div_content" class="col s12 m8 offset-m1 xl9 offset-xl1">{{content}}</div>
+    <div class="col hide-on-small-only m3 xl2">
+      <div id="div_summary" style="overflow:auto;height:100%"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="https://jeedom.github.io/documentation-theme/js/materialize.min.js"></script>
+<script type="text/javascript" src="https://jeedom.github.io/documentation-theme/js/lightbox.js"></script>
+<script type="text/javascript" src="https://jeedom.github.io/documentation-theme/js/init.js"></script>
+</body>
+</html>
