@@ -57,60 +57,70 @@
     <div id="slide-out" class="sidenav sidenav-fixed">
   <ul class="collapsible collapsible-accordion" id="ul_menu">
     
-    <li class="no-padding">
-      <ul class="collapsible collapsible-accordion">
-        <li><strong style="margin-left:20px; line-height:40px;"><i class="fas fa-cube"></i> Ressources</strong></li>
-        {% assign sorted_pages = site.pages | sort: 'nav_order' %}
-        {% for p in sorted_pages %}
-          {% assign path_array = p.path | split: "/" %}
-          {% if path_array.size == 1 and p.title and p.show_in_menu != false %}
-            <li class="{% if p.url == page.url %}active menu_active{% endif %}">
-              <a href="{{ p.url | relative_url }}" class="waves-effect">
-                <i class="fas {{ p.icon | default: 'fa-file' }}"></i> {{ p.title }}
-              </a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </li>
+    <li><strong style="margin-left:20px; line-height:40px;"><i class="fas fa-cube"></i> Ressources</strong></li>
+    {% assign sorted_pages = site.pages | sort: 'nav_order' %}
+    {% for p in sorted_pages %}
+      {% assign path_array = p.path | split: "/" %}
+      {% if path_array.size == 1 and p.title and p.show_in_menu != false %}
+        <li class="{% if p.url == page.url %}active menu_active{% endif %}">
+          <a href="{{ p.url | relative_url }}" class="waves-effect">
+            <i class="fas {{ p.icon | default: 'fa-file' }}"></i> {{ p.title }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
 
     <li class="divider"></li>
 
     {% assign pages_by_dir = sorted_pages | group_by_exp: "item", "item.path | split: '/' | first" %}
+    
     {% for group in pages_by_dir %}
-      {% comment %} On exclut les fichiers racines et les dossiers techniques Jekyll {% endcomment %}
-      {% assign excluded = "assets,css,js,img,fonts,_links.html" | split: "," %}
-      {% if group.name contains "." or excluded contains group.name %}{% continue %}{% endif %}
+      {% comment %} On ignore la racine et les dossiers techniques {% endcomment %}
+      {% assign excluded = "assets,css,js,img,fonts" | split: "," %}
+      {% if group.name == "" or group.name contains "." or excluded contains group.name %}
+        {% continue %}
+      {% endif %}
 
-      <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-          {% assign folder_active = false %}
-          {% for p in group.items %}
-            {% if p.url == page.url %}{% assign folder_active = true %}{% endif %}
-          {% endfor %}
+      {% comment %} --- LOGIQUE DE VÉRIFICATION DU CONTENU --- {% endcomment %}
+      {% assign visible_pages_count = 0 %}
+      {% for p in group.items %}
+        {% if p.title and p.show_in_menu != false %}
+          {% assign visible_pages_count = visible_pages_count | plus: 1 %}
+        {% endif %}
+      {% endfor %}
 
-          <li class="{% if folder_active %}active{% endif %}">
-            <a class="collapsible-header waves-effect">
-              <i class="fas fa-folder"></i>
-              <span>{{ group.name | replace: "-", " " | replace: "_", " " | capitalize }}</span>
-              <i class="material-icons caret-icon">arrow_drop_down</i>
-            </a>
-            <div class="collapsible-body">
-              <ul>
-                {% for p in group.items %}
-                  {% if p.title and p.show_in_menu != false %}
-                    <li class="{% if p.url == page.url %}menu_active{% endif %}">
-                      <a href="{{ p.url | relative_url }}" style="padding-left: 50px;">
-                        <i class="fas {{ p.icon | default: 'fa-file-alt' }}" style="font-size: 14px;"></i> {{ p.title }}
-                      </a>
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </li>
+      {% comment %} On n'affiche le dossier que s'il contient au moins une page valide {% endcomment %}
+      {% if visible_pages_count > 0 %}
+        <li class="no-padding">
+          <ul class="collapsible collapsible-accordion">
+            {% assign folder_active = false %}
+            {% for p in group.items %}
+              {% if p.url == page.url %}{% assign folder_active = true %}{% endif %}
+            {% endfor %}
+
+            <li class="{% if folder_active %}active{% endif %}">
+              <a class="collapsible-header waves-effect">
+                <i class="fas fa-folder"></i>
+                <span>{{ group.name | replace: "-", " " | replace: "_", " " | capitalize }}</span>
+                <i class="material-icons right" style="margin-right:0;">arrow_drop_down</i>
+              </a>
+              <div class="collapsible-body">
+                <ul>
+                  {% for p in group.items %}
+                    {% if p.title and p.show_in_menu != false %}
+                      <li class="{% if p.url == page.url %}menu_active{% endif %}">
+                        <a href="{{ p.url | relative_url }}" style="padding-left: 50px;">
+                          <i class="fas {{ p.icon | default: 'fa-file-alt' }}"></i> {{ p.title }}
+                        </a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+      {% endif %}
     {% endfor %}
   </ul>
 </div>
